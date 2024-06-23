@@ -4,7 +4,7 @@
 
 SELECT *
 FROM czechia_payroll AS cpay
-WHERE value_type_code = 5958);
+WHERE value_type_code = 5958;
 
 
 -- 114201 = mléko, 111301 = chleba
@@ -101,3 +101,15 @@ LEFT JOIN czechia_price_category AS cpc
 	ON cp.category_code = cpc.code
 WHERE cp.category_code = '114201' AND YEAR(cp.date_from) IN ('2006', '2018')
 GROUP BY YEAR(cp.date_from);
+
+-- sum mzdy pro rok 2006
+
+SELECT
+	payroll_year,
+	sum(value) AS mzda_celkem
+FROM czechia_payroll AS cpay
+WHERE value_type_code = 5958 AND payroll_year IN ('2006', '2018')
+GROUP BY payroll_year;
+
+ 
+
